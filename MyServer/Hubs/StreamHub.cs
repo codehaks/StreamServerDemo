@@ -12,7 +12,7 @@ namespace MyServer.Hubs
         {
             for (int i = 0; i < 10; i++)
             {
-                await Task.Delay(100);
+                await Task.Delay(1000);
                 yield return i.ToString();
             }
         }
