@@ -15,34 +15,26 @@ namespace MyServer.Hubs
 
             string query = "SELECT * FROM Payments";
 
-            using SqlConnection connection =
-            new SqlConnection(connectionString);
-            // Create the Command and Parameter objects.
+            using SqlConnection connection = new SqlConnection(connectionString);
+
             SqlCommand command = new SqlCommand(query, connection);
 
-
-            // Open the connection in a try/catch block. 
-            // Create and execute the DataReader, writing the result
-            // set to the console window.
-
             connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                Console.WriteLine("\t{0}\t{1}\t{2}",
-                    reader[0], reader[1], reader[2]);
 
-                await Task.Delay(1000);
-                yield return reader[1].ToString();
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (await reader.ReadAsync())
+            {
+                Console.WriteLine("\t{0}\t{1}\t{2}", reader[0], reader[1], reader[2]);
+
+                await Task.Delay(200);
+                yield return reader[8].ToString();
             }
+
             reader.Close();
 
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    await Task.Delay(1000);
-            //    yield return i.ToString();
-            //}
+
         }
-        
+
     }
 }
