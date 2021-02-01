@@ -35,9 +35,9 @@ namespace MyClient
 
             var stream = connection.StreamAsync<string>("SendDataRow", cancellationTokenSource.Token);
 
-            await foreach (var trackingCode in stream)
+            await foreach (var fullName in stream)
             {
-                Console.WriteLine($"{trackingCode}");
+                Console.WriteLine($"{fullName}");
             }
 
             Console.WriteLine("Streaming completed");          

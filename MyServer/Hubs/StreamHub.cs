@@ -11,9 +11,9 @@ namespace MyServer.Hubs
     {
         public async IAsyncEnumerable<string> SendDataRow()
         {
-            string connectionString = "Data Source=.\\sqlexpress;Initial Catalog=mypub;Integrated Security=True";
+            string connectionString = "Data Source=.\\mssql2019;Initial Catalog=AdventureWorks2019;Integrated Security=True";
 
-            string query = "SELECT * FROM Payments";
+            string query = "SELECT FirstName,MiddleName,LastName FROM [Person].[Person]";
 
             using SqlConnection connection = new SqlConnection(connectionString);
 
@@ -28,7 +28,7 @@ namespace MyServer.Hubs
                 Console.WriteLine("\t{0}\t{1}\t{2}", reader[0], reader[1], reader[2]);
 
                 await Task.Delay(200);
-                yield return reader[8].ToString();
+                yield return reader[0].ToString()+" "+ reader[1].ToString() + " " + reader[2].ToString();
             }
 
             reader.Close();
